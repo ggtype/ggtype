@@ -1,1 +1,194 @@
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ggtype</title>
+  </head>
+  <style>
+    h3 {
+      color: grey;
+    }
+    body {
+      color: white;
+      background-color: black;
+      display: inline-block;
+      font-family: "Courier New";
+      padding-left: 30px;
+    }
+  </style>
+  <body>
+    <h1>ggtype</h1>
+    <h4>Just a typing test. Simply type to begin.</h4>
+    <br />
+    <h2 id="timer"></h2>
+    <h3 id="randomword"></h3>
+    <h2 id="typed"></h2>
+    <h3 id="stats"></h3>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <h5>E-mail docs.db@gmail.com to report defects/for suggestions</h5>
+    <script>
+      let str = "";
+      let words = [
+        "the",
+        "of",
+        "and",
+        "a",
+        "to",
+        "in",
+        "is",
+        "you",
+        "that",
+        "it",
+        "he",
+        "was",
+        "for",
+        "on",
+        "are",
+        "as",
+        "with",
+        "his",
+        "they",
+        "at",
+        "be",
+        "this",
+        "have",
+        "from",
+        "or",
+        "one",
+        "had",
+        "by",
+        "word",
+        "but",
+        "not",
+        "what",
+        "all",
+        "were",
+        "we",
+        "when",
+        "your",
+        "can",
+        "said",
+        "there",
+        "use",
+        "an",
+        "each",
+        "which",
+        "she",
+        "do",
+        "how",
+        "their",
+        "if",
+        "will",
+        "up",
+        "other",
+        "about",
+        "out",
+        "many",
+        "then",
+        "them",
+        "these",
+        "so",
+        "some",
+        "her",
+        "would",
+        "make",
+        "like",
+        "him",
+        "into",
+        "time",
+        "has",
+        "look",
+        "two",
+        "more",
+        "write",
+        "go",
+        "see",
+        "number",
+        "no",
+        "way",
+        "could",
+        "people",
+        "my",
+        "than",
+        "first",
+        "water",
+        "been",
+        "call",
+        "who",
+        "oil",
+        "its",
+        "now",
+        "find",
+        "long",
+        "down",
+        "day",
+        "did",
+        "get",
+        "come",
+        "made",
+        "may",
+        "part"
+      ];
+      let start = 30;
+      let word = [
+        words[Math.floor(Math.random() * 100)],
+        words[Math.floor(Math.random() * 100)],
+        words[Math.floor(Math.random() * 100)]
+      ];
+      let uncorrectederrors = 0;
+      let typedentries = 0;
+      let delay = setInterval(time, 1000);
+      document.getElementById("timer").innerHTML = start;
+      function time() {
+        start -= 1;
+        if (start == 0) {
+          clearInterval(delay);
+          let grosswpm = (typedentries / 5) * 2;
+          let netwpm = grosswpm - uncorrectederrors / 0.5;
+          document.getElementById("stats").innerHTML =
+            "WPM: " +
+            Math.round(netwpm) +
+            ", Gross WPM: " +
+            Math.round(grosswpm);
+        }
+        document.getElementById("timer").innerHTML = start;
+      }
+      document.getElementById("randomword").innerHTML =
+        word[0] + " " + word[1] + " " + word[2];
+      document.addEventListener("keydown", (event) => {
+        if (event.code === "Space") {
+          str = "";
+          typedentries += 1;
+          word = [word[1], word[2], words[Math.floor(Math.random() * 100)]];
+          document.getElementById("randomword").innerHTML =
+            word[0] + " " + word[1] + " " + word[2];
+          document.getElementById("typed").innerHTML = str;
+        } else if (event.key === "Backspace") {
+          str = str.slice(0, -1);
+          if (typedentries != 0) {
+            typedentries -= 1;
+          }
+          document.getElementById("typed").innerHTML = str;
+        } else {
+          typedentries += 1;
+          document.getElementById("typed").innerHTML = str + event.key;
+          str += event.key;
+          if (word[0].startsWith(str)) {
+          } else {
+            uncorrectederrors += 1;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
